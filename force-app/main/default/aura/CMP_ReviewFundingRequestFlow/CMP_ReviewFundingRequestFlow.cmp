@@ -1,0 +1,15 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.loadFlowComponents}" />
+    <aura:html tag="style">
+    	.flowCls{
+        overflow:scroll;
+        height:1600px;
+        }
+    </aura:html>
+    
+    <lightning:flow aura:id="reviewFundingRequest" class="flowCls"/>
+    
+    
+</aura:component>

@@ -1,0 +1,18 @@
+<!-- sldsValidatorIgnore -->
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 11-14-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div>
+        <lightning-tree-grid key-field="codeId" columns={listCodesColumns} data={listCodesRecs}
+            ontoggle={handleRowToggle} selected-rows={listPreSelectedCodeIds}>
+        </lightning-tree-grid>
+
+        <lightning-button label="Next" onclick={handleNextButtonClicked}></lightning-button>
+    </div>
+
+</template>

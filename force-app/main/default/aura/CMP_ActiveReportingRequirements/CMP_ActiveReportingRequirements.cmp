@@ -1,0 +1,45 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                controller="CMP_ActiveReportingRequirements_APX"
+                access="global" >
+    
+    <!--Attributes-->
+    <aura:attribute type="object" name="listActiveReportingReqs" />
+    <aura:attribute type="object" name="listActiveReportingReqColumns" />
+    <aura:attribute type="boolean" name="loaded" default="false" />
+    <!--**********-->
+    
+    <!--Event Handler-->
+    <aura:handler name="init" value="{!this}" action="{!c.fetchActiveReportingReqs}" />
+    <!--*************-->
+    
+    <!--Navigation-->
+    <lightning:navigation aura:id="navService" />
+    <!--**********-->
+    
+	<div class="slds-box ds-white-background">
+        <div class="slds-grid slds-grid_align-spread slds-p-around_medium">
+            <div class="slds-col slds-p-bottom_medium">
+                <div class="activeReportingRequirements">
+                    <table title="Active Reporting Requirements">
+                        <caption class="activeReportingReqsCaption">
+                            <lightning:icon class="activeReportingReqIcon" iconName="action:edit" alternativeText="edit" title="edit" size="small" />
+                            Active Reporting Requirements
+                        </caption>
+                    	<tr>
+                            <aura:if isTrue="{!v.loaded}">
+                                <lightning:datatable keyField="fndReqId" data="{!v.listActiveReportingReqs}" columns="{!v.listActiveReportingReqColumns}"
+                                                     hideCheckboxColumn="true" onrowaction="{!c.handleRowAction}"/>
+                                <aura:set attribute="else">
+                                	<lightning:spinner variant="brand" alternativeText="Loading" />
+                                </aura:set>
+                            </aura:if>
+                        </tr>
+                    </table>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	
+</aura:component>

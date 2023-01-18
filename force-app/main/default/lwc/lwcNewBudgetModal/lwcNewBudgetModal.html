@@ -1,0 +1,71 @@
+<!--
+ - Created by denisletkovski on 2022-07-07.
+ -->
+
+<!-- Lwc New Budget Modal -->
+<template>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+
+        <div class="slds-modal__container">
+            <lightning-record-edit-form object-api-name="Budget_Scenario__c" record-id={recordId}
+                onsuccess={handleBudgetScenarioCreateSuccess}>
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                        <template if:false={isEdit}>
+                            <template if:true={isClone}>
+                                Clone the Budget
+                            </template>
+                            <template if:false={isClone}>
+                                Create New Budget
+                            </template>
+                        </template>
+                        <template if:true={isEdit}>
+                            Edit Budget
+                        </template>
+                    </h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                    <lightning-input-field required=true field-name="Amount__c" value={amount}
+                        onchange={handleAmountChange}></lightning-input-field>
+                    <lightning-input-field disabled={isClone} style="z-index: 999; position: relative" required=true
+                        field-name="Fiscal_Year__c" value={fiscalYear} onchange={handleFyChange}>
+                    </lightning-input-field>
+                    <lightning-input-field disabled={isClone} required=true field-name="Portfolio__c" value={portfolio}
+                        onchange={handlePortfolioChange}></lightning-input-field>
+                    <lightning-input-field required=true field-name="Name" value={name} onchange={handleNameChange}>
+                    </lightning-input-field>
+                    <template if:true={isClone}>
+                        <lightning-input-field disabled field-name="CBGO_Budget__c" value={parentId}>
+                        </lightning-input-field>
+                    </template>
+
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <!-- <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button> -->
+                    <!-- <button class="slds-button slds-button_brand" onclick={createBudget}
+                        title={buttonLabel}>{buttonLabel}</button> -->
+                    <lightning-button class="footerButtons" variant="destructive" label="Cancel" title="Cancel"
+                        onclick={closeModal}>
+                    </lightning-button>
+                    <lightning-button class="footerButtons" variant="brand" label={buttonLabel} title={buttonLabel}
+                        type="submit">
+                    </lightning-button>
+                </footer>
+            </lightning-record-edit-form>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

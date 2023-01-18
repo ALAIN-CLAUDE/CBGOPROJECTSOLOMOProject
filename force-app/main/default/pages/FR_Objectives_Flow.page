@@ -1,0 +1,12 @@
+<apex:page standardController="Funding_Request__c">
+
+  
+  <apex:pageBlock title="objectives">
+ 
+ 
+<apex:relatedList list="Objectives"/>
+
+
+</apex:pageBlock>
+
+</apex:page>

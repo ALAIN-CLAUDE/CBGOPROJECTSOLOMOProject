@@ -1,0 +1,46 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                controller="CMP_PartnerHomePage_APX"
+                access="global" >
+    
+    <!--ATTRIBUTES-->
+    <aura:attribute type="List" name="listHomePageSettings" />
+    <!--**********-->
+    
+    <!--HANDLERS-->
+    <aura:handler name="init" value="{!this}" action="{!c.fetchHomePageSettings}" />
+    <!--********-->
+    
+    <!--NAVIGATION-->
+    <lightning:navigation aura:id="navService" />
+    <!--**********-->
+    
+    <aura:if isTrue="{!not(empty(v.listHomePageSettings))}">
+        <div class="slds-box ds-white-background">
+            <aura:iteration items="{!v.listHomePageSettings}" var="homePage">
+                <!--<lightning:card iconName="{!homePage.Image_Name__c}" title="{!homePage.Banner_Text__c}">
+             <aura:set attribute="actions">
+                    <lightning:button iconName="utility:chevronright" onclick="{!c.buttonClick}" label="Check Out" />
+                </aura:set>
+            </lightning:card>
+   -->
+                <div class="slds-grid slds-grid_align-spread slds-p-around_medium gridBorder">
+                    <div class="slds-col slds-p-bottom_medium">
+                        <div class="slds-media slds-media_large">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="{!homePage.Image_Name__c}" alternativeText="{!homePage.Banner_Text__c}" size="large" />
+                            </div>
+                            <div class="slds-media__body">
+                                <h1 class="bannerText">{!homePage.Banner_Text__c}</h1>
+                                <p>{!homePage.Banner_Help_Text__c}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-p-bottom_medium">
+                        <lightning:button iconName="utility:chevronright" value="{!homePage}" onclick="{!c.checkoutButtonClicked}" label="Review" />
+                    </div>
+                </div>
+            </aura:iteration>
+        </div>
+    </aura:if>
+	
+</aura:component>

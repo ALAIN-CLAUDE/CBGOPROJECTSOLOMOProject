@@ -1,0 +1,116 @@
+<!-- sldsValidatorIgnore -->
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 01-03-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<template>
+	
+	<div class="spinner">
+        <template if:true={isLoading}>
+             <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+             </lightning-spinner>
+        </template>
+    </div>
+
+	<div class="slds-box">
+		<article class="slds-card">
+			<div class="slds-card__header slds-grid">
+				<header class="slds-media slds-media_center slds-has-flexi-truncate">
+					<div class="slds-media__body">
+						<br>
+						<h2>
+							<span class="slds-text-heading_small">Please enter a percentage for each code (The total
+                            percentage must be 100% each selected catagories). </span>
+						</h2>
+					</div>
+				</header>
+			</div>
+			<div class="slds-card__body slds-card__body_inner">
+
+				<div class="slds-form">
+					<div class="slds-form-element slds-form-element_stacked">
+						<table class="slds-table slds-table_cell-buffer slds-box " aria-label=" ">
+
+							<thead class="slds-modal__header">
+								<tr class="slds-line-height_reset">
+									<th class="" scope="col">
+										<div class="slds-truncate" title="">Code Name</div>
+									</th>
+									<th class="" scope="col">
+										<div class="slds-truncate" title="Percntage"><b>%</b></div>
+									</th>
+								</tr>
+							</thead>
+
+							<template for:each={recordData} for:item="item">
+								<tbody key={item.id} class="slds-box ">
+									<tr class="slds-hint-parent">
+										<th data-label="Parent Name" scope="row">
+											<div class="slds-truncate" title="Parent Name">
+												<b>{item.codeName}</b>
+											</div>
+										</th>
+										<td data-label="">
+										</td>
+									</tr>
+
+									<template for:each={item.selectedCodes} for:item="itemValue">
+										<tr class="slds-hint-parent" key={itemValue.codeId}>
+											<th data-label="ChildName" scope="row">
+												<div class="slds-truncate" title="Child Name">
+													{itemValue.codeName}
+												</div>
+											</th>
+											<td data-label="child score">
+												<div class="slds-truncate">
+													<lightning-input type="number" data-id={itemValue.codeId}
+														value={itemValue.percentAmount} onchange={handlePercentChange}
+														class="PercentAmount"></lightning-input>
+												</div>
+											</td>
+										</tr>
+									</template>
+									<tr>
+										<th data-label="Total" scope="row">
+											<div class="slds-truncate" title="Total">
+												<b>Total</b>
+											</div>
+										</th>
+										<td data-label="Score">
+											<div class="slds-truncate slds-text-heading_small" title="score" >
+												<strong > {item.totalPercentage} % </strong>
+												<template if:true={item.isPercentComplete}>
+												  <lightning-icon icon-name="action:approval" alternative-text="Not 100 %" size="x-small" title="">  </lightning-icon>
+
+												 </template>
+												 <template if:false={item.isPercentComplete}>
+
+												  <lightning-icon icon-name="action:close" alternative-text="Not 100 %" size="x-small" title="">  </lightning-icon>
+												 </template>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</template>
+						</table>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div slot="footer" class="slds-clearfix">
+				<footer class="slds-float_right">
+					<button class="slds-button slds-button_neutral" onclick={handleBack} title="Back">Back</button>
+					<button class="slds-button slds-button_brand" onclick={handleSubmit} title="Submit">Submit</button>
+				</footer>
+
+			</div>
+		</article>
+	</div>
+
+</template>

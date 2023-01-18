@@ -1,0 +1,24 @@
+<!--
+ - Created by denisletkovski on 2022-06-08.
+ -->
+
+<!-- Lwc Budget Detail Table -->
+<template>
+    <lightning-button class="slds-m-left_medium" label='New' name='new' onclick={openModal}></lightning-button>
+    <template if:true={isModalOpened}>
+        <c-lwc-new-budget-modal amount={amountForClone} fiscal-year={yearForClone} name={nameForClone} is-edit={isEdit}
+            portfolio={portfolioForClone} is-clone={isClone} parent-id={parentBudgetId} record-id={recordId}
+            onclose={closeModal} onrefresh={getNewBudgetList} onleftpanelrefresh={handleLeftPanelRefresh}>
+        </c-lwc-new-budget-modal>
+    </template>
+    <template if:true={isDeleteModalOpened}>
+        <c-lwc-modal-deleting-confirmation is-has-child-budget={isHasChild} record-id={recordIdForDelete}
+            ondelete={handleCloseDelete}>
+        </c-lwc-modal-deleting-confirmation>
+    </template>
+    <div class="slds-p-around_medium last-row-bold">
+        <lightning-tree-grid columns={columns} data={budgets} key-field="parentBudgetId" onrowaction={handleAction}
+            onrowselection={rowSelected} hide-checkbox-column="true">
+        </lightning-tree-grid>
+    </div>
+</template>

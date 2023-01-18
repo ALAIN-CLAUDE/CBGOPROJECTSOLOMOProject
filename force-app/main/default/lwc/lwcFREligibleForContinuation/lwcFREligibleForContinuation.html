@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Choose a Funding Opportunity To Link">
+        <template if:true={loaded}>
+            <lightning-record-edit-form object-api-name="Funding_Request__c">
+                <lightning-input-field field-name="Funding_Opportunity__c" onchange={handleFundingOppSelected}></lightning-input-field>
+            </lightning-record-edit-form>
+        </template>
+        <template if:false={loaded}>
+            <lightning-spinner variant="brand"></lightning-spinner>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,109 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-23-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+
+
+
+    <c-lwc-toast-params></c-lwc-toast-params>
+
+    <!-- Display First Component : {displayFirstComponent}
+    <br />
+    Display Second Component : {displaySecondComponent}
+    <br />
+    Display Third Component : {displayThirdComponent} -->
+    <br />
+
+    <template if:true={displayFirstComponent}>
+        <lightning-tabset>
+            <lightning-tab label="Codes">
+                <lightning-card>
+                    <lightning-layout>
+                        <lightning-layout-item>
+                            <!-- <template if:true={displayCodesComponent}>
+                                <c-lwc-codes record-id={recordId} onnextbuttonclick={handleNextFromCodes}></c-lwc-codes>
+                            </template>
+                            <template if:false={displayCodesComponent}>
+                                Codes are already associated to this record.
+                                <lightning-button label="Edit Codes And Tags"
+                                    onclick={handleOnclickEdit}></lightning-button>
+                            </template> -->
+                            <c-lwc-codes record-id={recordId} onnextbuttonclick={handleNextFromCodes}></c-lwc-codes>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-card>
+            </lightning-tab>
+            <!-- Tags code -->
+            <lightning-tab label="Tags">
+                <lightning-card>
+                    <lightning-layout>
+                        <lightning-layout-item>
+                            <!-- <template if:true={displayTagsComponent}>
+                                <c-lwc-tags record-id={recordId} onsubmittags={handleSubmitFromTags}></c-lwc-tags>
+                            </template>
+                            <template if:false={displayTagsComponent}>
+                                <div>
+                                    <p>
+                                        Tags are already associated to this record.
+                                    </p>
+                                </div>
+                            </template> -->
+                            <c-lwc-tags record-id={recordId} onsubmittags={handleSubmitFromTags}></c-lwc-tags>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-card>
+            </lightning-tab>
+        </lightning-tabset>
+    </template>
+    <!-- ************************************************************SECOND COMPONENT*********************************************************** -->
+    <template if:true={displaySecondComponent}>
+        <lightning-card>
+            <lightning-layout vertical-align="true">
+                <lightning-layout-item>
+                    <div>
+                        <!-- Alain's 2nd Component Here -->
+                        <c-lwc-codes-and-tags-percent onbackbuttonclick={handleBackButtonClickFromSecondComponent}
+                            onsubmitbuttonclick={handleSubmitFromCodes} record-id={recordId}
+                            object-api-name={objectApiName}>
+                        </c-lwc-codes-and-tags-percent>
+                        <!-- ****************************** -->
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item alignment-bump="right">
+                    <div>
+                        <!-- floating right buttons for Edit and  -->
+                        <lightning-button label="Edit Codes And Tags" onclick={handleOnclickEdit}></lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>
+    </template>
+    <!-- ************************************************************THIRD COMPONENT*********************************************************** -->
+
+    <template if:true={displayThirdComponent}>
+        <lightning-card>
+            <lightning-layout vertical-align="true">
+                <lightning-layout-item>
+                    <div>
+                        <!-- Alain's 3rd Component Here -->
+                        <c-lwc-codes-and-tags-display-percent record-id={recordId}>
+                        </c-lwc-codes-and-tags-display-percent>
+                        <!-- ********************** -->
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item alignment-bump="right">
+                    <div>
+                        <!-- floating right buttons for Edit and  -->
+                        <lightning-button label="Edit Codes And Tags" onclick={handleOnclickEdit}></lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>
+
+    </template>
+
+</template>

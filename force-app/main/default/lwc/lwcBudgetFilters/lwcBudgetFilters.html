@@ -1,0 +1,37 @@
+<!--
+ - Created by denisletkovski on 2022-06-08.
+ -->
+
+<!-- Lwc Budget Filters -->
+<template>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-3">
+            <lightning-record-edit-form object-api-name="Budget_Scenario__c">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field class="slds-m-left_medium" field-name="Portfolio__c"
+                            data-field-name="portfolio" onchange={handlePortfolioSelected}></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Fiscal_Year__c" onchange={handleYearSelection}
+                            data-field-name="fiscalYear">
+                        </lightning-input-field>
+                    </div>
+                </div>
+            </lightning-record-edit-form>
+        </div>
+
+        <div class="slds-col slds-size_2-of-3">
+            <div class="slds-box">
+                <lightning-card>
+                    <template for:each={compoundFilterList} for:item="filter">
+                        <div class="slds-p-around_medium" key={filter.Id}>
+                            <lightning-pill label={filter.Name} name={filter.Id} onremove={handleRemovePill}>
+                            </lightning-pill>
+                        </div>
+                    </template>
+                </lightning-card>
+            </div>
+        </div>
+    </div>
+</template>

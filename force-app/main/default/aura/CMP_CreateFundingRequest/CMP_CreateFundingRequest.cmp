@@ -1,0 +1,94 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                controller="CMP_CreateFundingRequest_APX"
+                access="global" >
+    
+    <!--ATTRIBUTES-->
+    <aura:attribute type="object" name="listSPAs" />
+    <aura:attribute type="list" name="listSPAColumns" />
+    <aura:attribute type="boolean" name="displaySPAList" default="false" />
+    <aura:attribute type="SPA__c[]" name="listSelectedSPAs" />
+    
+    <aura:attribute type="object" name="listPortFolios" />
+    <aura:attribute type="list" name="listPortfolioColumns" />
+    <aura:attribute type="list" name="listSelectedPortfolios" />
+    
+    <aura:attribute type="list" name="listOrgTypes" />
+    <aura:attribute type="list" name="listOrgTypeColumns" />
+    <aura:attribute type="list" name="listSelectedOrgTypes" />
+    
+    <aura:attribute type="boolean" name="displayAccounts" />
+    <aura:attribute type="object" name="listAccounts" />
+    <aura:attribute type="list" name="listAccountColumns" />
+    <aura:attribute type="Account[]" name="listSelectedAccounts" />
+    
+    <aura:attribute type="object" name="pageReference" />
+    <!--**********-->
+    
+    <!--EVENTS-->
+    <aura:handler name="init" value="{!this}" action="{!c.fetchSPAs}" />
+    <!--******-->
+    
+    <!--NAVIGATION-->
+    <lightning:navigation aura:id="navService"/>
+    <!--**********-->
+    
+        <aura:if isTrue="{!v.displaySPAList}">
+            
+            <lightning:layout horizontalAlign="space" multipleRows="true">
+                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                    <lightning:card iconName="custom:custom47" title="Select SPAs">
+                        <lightning:datatable keyField="Id" columns="{!v.listSPAColumns}" data="{!v.listSPAs}" 
+                                             showRowNumberColumn="false" onrowselection ="{!c.spaSelected}"
+                                             />
+                    </lightning:card>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                    <!--<lightning:select aura:id="selectedPortfolio" label="Select A Portfolio">
+                        <option text="Choose a portfolio" value="" />
+                        <aura:iteration items="{!v.listPortFolios}" var="portFolio">
+                            <option text="{!portFolio.label}" value="{!portFolio.value}" />
+                        </aura:iteration>
+                    </lightning:select>-->
+                    <lightning:card iconName="custom:custom47" title="Select Portfolios">
+                        <lightning:datatable keyField="value" columns="{!v.listPortfolioColumns}" data="{!v.listPortFolios}" 
+                                             onrowselection="{!c.portfolioSelected}"
+                                             />
+                    </lightning:card>
+                    <br/>
+                    <!--<lightning:select aura:id="selectedOrgType" label="Select An Org Type">
+                        <option text="Choose an Org Type" value="" />
+                        <aura:iteration items="{!v.listOrgTypes}" var="orgType">
+                            <option text="{!orgType.label}" value="{!orgType.value}" />
+                        </aura:iteration>
+                    </lightning:select>-->
+                    <lightning:card iconName="custom:custom47" title="Select Org Types">
+                        <lightning:datatable keyField="value" columns="{!v.listOrgTypeColumns}" data="{!v.listOrgTypes}" 
+                                             onrowselection="{!c.orgTypeSelected}"
+                                             />
+                    </lightning:card>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:if>
+    
+    <aura:if isTrue="{!v.displayAccounts}" >
+        <lightning:card iconName="custom:custom95" title="Account List">
+            <lightning:layout horizontalAlign="space" multipleRows="true">
+                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                    <lightning:datatable keyField="Id" columns="{!v.listAccountColumns}" data="{!v.listAccounts}" 
+                                         onrowselection ="{!c.accountSelected}"
+                                         />
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+            <center>
+                <lightning:button iconName="utility:close" onclick="{!c.clearValues}" label="Reset"
+                                  variant="destructive"
+                                  />
+                <lightning:button iconName="utility:new" onclick="{!c.createFundingRequests}" label="Create Funding Requests"
+                                  variant="brand"
+                                  />
+            </center>
+        </lightning:card>
+    </aura:if>
+	
+</aura:component>

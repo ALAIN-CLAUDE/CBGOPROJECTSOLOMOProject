@@ -1,0 +1,27 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable"
+    controller="CMP_FRDecisionMaker_APX"
+    access="global"
+>
+
+    <!--Attributes-->
+    <aura:attribute type="boolean" name="showContButton" default="false" />
+    <aura:attribute type="boolean" name="showNewButton" default="false" />
+
+    <!--Handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.getFundingRequests}" />
+
+    <!--
+    <lightning:card title="Check Eligibility" variant="Narrow">
+        <div class="slds-align_absolute-center" style="height:5rem">
+            <aura:if isTrue="{!v.showContButton}">
+                <lightning:button iconName="utility:check" label="Continue" onclick="{!c.handleContinueButton}" />
+            </aura:if>
+            <aura:if isTrue="{!v.showNewButton}">
+                <lightning:button iconName="utility:check" label="New" onclick="{!c.handleNewButton}" />
+            </aura:if>
+        </div>
+    </lightning:card>
+-->
+<lightning:flow aura:id="frDecisionNav" />
+
+</aura:component>

@@ -1,0 +1,13 @@
+.THIS .navigation {
+    min-width: 225px;
+    border-right: 1px solid #e7e7e7;
+}
+
+.THIS .slds-form-element__label{
+    font-size:16px;
+    font-weight:bold;
+}
+
+.THIS .slds-form-element__control{
+    font-size:15px;
+}

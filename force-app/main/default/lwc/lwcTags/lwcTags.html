@@ -1,0 +1,12 @@
+<template>
+    <div>
+        <lightning-tree-grid key-field="tagId" columns={listTagsColumns} data={listTagsRecs} ontoggle={handleRowToggle}>
+        </lightning-tree-grid>
+    </div>
+    <div>
+        <lightning-button label="Submit" onclick={handleSubmitButtonClick} variant="brand"></lightning-button>
+    </div>
+    <div>
+        <c-lwc-toast-params></c-lwc-toast-params>
+    </div>
+</template>

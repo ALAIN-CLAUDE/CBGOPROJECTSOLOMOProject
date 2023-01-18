@@ -1,0 +1,126 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,forceCommunity:themeLayout" 
+                access="global" >
+    
+    <aura:attribute type="boolean" name="X501Org" default="true" />
+    
+    <aura:html tag="style">
+        .slds-form-element__label{
+        color:white;			
+        font-weight:bold;
+        font-size:12px;
+        }
+        .slds-card{
+        background-color: transparent;
+        //background-color: red !important;
+        width: 100%;
+        }
+        .slds-text-heading_small{
+        color:white;
+        margin-left: 18rem;
+        }
+    </aura:html>
+    
+    <lightning:card>
+        <lightning:recordEditForm objectApiName="Lead" onsuccess ="{!c.onsuccess}" onerror="{!c.handleError}">
+            <lightning:layout multipleRows="true" horizontalAlign="space">
+                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                    <div class="slds-align_absolute-center" style="color:white;font-weight:bold;font-size:2rem;">
+                        <p><strong>Enter Your Details</strong></p>
+                    </div>
+                </lightning:layoutItem>
+                <div class="slds-grid slds-wrap" style="width:50rem;">  
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-stacked" aura:id="firstNameId" fieldName="FirstName" />
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-stacked" aura:id="lastNameId" fieldName="LastName" required="true" />
+                    </lightning:layoutItem>
+                </div>
+                <div class="slds-grid slds-wrap" style="width:50rem;">  
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-stacked" aura:id="companyId" fieldName="Company"/>
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-stacked" :id="emailId" fieldName="Email" required="true"/>
+                    </lightning:layoutItem>
+                </div>
+                <div class="slds-grid slds-wrap" style="width:50rem;">  
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-stacked" aura:id="phoneId" fieldName="Phone" required="true"/>
+                    </lightning:layoutItem>
+                </div>
+                <div class="slds-grid slds-wrap" style="width:50rem;">  
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="12" padding="around-small">
+                        <lightning:inputField variant="label-stacked" aura:id="addressId" fieldName="Address" required="true"/>
+                    </lightning:layoutItem>
+                </div>
+                
+                <div class="slds-grid slds-wrap" style="width:50rem;">  
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <label class="slds-form-element__label" style="margin-left:0.8rem;" for="workSpas">
+                            Do you work within the Service Planning Areas (SPAs) 2, 4, 5, 6, and/or 8?
+                        </label>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-align_absolute-center" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-hidden" aura:id="workSpas" fieldName="Work_within_SPAs_2_4_5_6_and_or_8__c"  />
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <label class="slds-form-element__label" style="margin-left:0.8rem;" for="501Orgnaization">
+                            Are you a 501(c)(3) organization?
+                        </label>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-align_absolute-center" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-hidden" aura:id="501Orgnaization" fieldName="X501_c_3_organization__c" value="{!v.X501Org}"  onchange="{!c.displayFiscalSponsor}" />
+                    </lightning:layoutItem>
+                </div>
+                
+                <aura:if isTrue="{!not(v.X501Org)}">
+                    <div class="slds-grid slds-wrap" style="width:50rem;">
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                            <label class="slds-form-element__label" style="margin-left:0.8rem;" for="fiscalSponsor">
+                                Do you have a fiscal sponsor?
+                            </label>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                            <lightning:inputField variant="label-hidden" aura:id="fiscalSponsor" fieldName="Fiscal_Sponsor__c"/>
+                        </lightning:layoutItem>
+                    </div>
+                </aura:if>
+                
+                <div class="slds-grid slds-wrap" style="width:50rem;">
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <label class="slds-form-element__label" style="margin-left:0.8rem;" for="applicationType">
+                            Are you interested in applying for a grant or sponsorship?
+                        </label>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-hidden" aura:id="applicationType" fieldName="Application_Type__c"/>
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">  
+                        <label class="slds-form-element__label" style="margin-left:0.8rem;" for="areaOfFocus">
+                            Can you briefly describe your organization's area of focus?
+                        </label>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="12" largeDeviceSize="6" padding="around-small">
+                        <lightning:inputField variant="label-hidden" aura:id="areaOfFocus" fieldName="Description"  />
+                    </lightning:layoutItem>
+                </div>
+                
+            </lightning:layout>
+            
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem class="slds-align_absolute-center slds-p-around_large" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                    <lightning:button class="btn_css" variant="destructive" label="Reset" type="reset" iconName="utility:refresh" />
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem class="slds-align_absolute-center slds-p-around_large" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                    <lightning:button class="btn_css" variant="brand" label="Sign-Up" type="submit" iconName="utility:enter" />
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:recordEditForm>
+    </lightning:card>
+</aura:component>

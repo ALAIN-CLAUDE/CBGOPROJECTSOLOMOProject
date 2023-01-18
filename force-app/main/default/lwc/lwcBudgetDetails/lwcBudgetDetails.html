@@ -1,0 +1,22 @@
+<!--
+ - Created by denisletkovski on 2022-06-08.
+ -->
+
+<!-- Lwc Budget Details -->
+<template>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_5-of-12">
+            <!-- <c-lwc-budget-record-detail budget={selectedBudget}></c-lwc-budget-record-detail> -->
+            <c-lwc-budget-record-detail onrefreshrightpanel={handleRefreshRightPanel}></c-lwc-budget-record-detail>
+        </div>
+        <div class="slds-col slds-size_7-of-12">
+            <lightning-card>
+                <c-lwc-budget-filters onbudget={handleBudgetChanged}></c-lwc-budget-filters>
+                <c-lwc-budget-detail-table budgets={selectedBudgets} onselected={handleBudgetSelection}
+                    oncreate={handelNewBudgetCreated} onleftpanelrefresh={handleRefreshLeftPanel}>
+                </c-lwc-budget-detail-table>
+            </lightning-card>
+        </div>
+    </div>
+
+</template>

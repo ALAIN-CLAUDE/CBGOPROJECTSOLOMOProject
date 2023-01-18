@@ -1,0 +1,64 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                controller="CMP_ReviewerHomePage_APX"
+                access="global" >
+	
+    
+    <!--ATTRIBUTES-->
+    <aura:attribute type="User" name="userRec" />
+    
+    <aura:attribute type="integer" name="totalAssignmentsCount" default="0" />
+    
+    <aura:attribute type="integer" name="pendingAssignmentsCount" default="0" />
+    <aura:attribute type="object" name="listPendingReviewAssignments" />
+    <aura:attribute type="list" name="listPendingReviewColumns" />
+    
+    <aura:attribute type="integer" name="completedAssignmentsCount" default="0" />
+    <aura:attribute type="object" name="listCompletedReviewAssignments" />
+    <aura:attribute type="list" name="listCompletedReviewColumns" />
+    <!--**********-->
+    
+    <lightning:navigation aura:id="navService" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.fetchReviewAssignments}" />
+    
+    <div class="slds-box ds-white-background">
+        <div class="slds-grid slds-grid_align-spread slds-p-around_medium gridBorder">
+            <div class="slds-col slds-p-bottom_medium">
+                <div class="welcomeHeader">
+                	Welcome, {!v.userRec.Name}
+                </div>
+                <div class="submissionText">
+                	You have submitted {!v.completedAssignmentsCount} of {!v.totalAssignmentsCount} assigned reviews
+                </div>
+                <div class="pendingSubmissionsTable">
+                    <table title="Reviews To Complete">
+                        <caption class="pendingReviewCaption">
+                            <lightning:icon class="pendingIcon" iconName="action:edit" alternativeText="edit" title="edit" size="small" />
+                            Reviews To Complete
+                        </caption>
+                    	<tr>
+                            <lightning:datatable keyField="revAssId" data="{!v.listPendingReviewAssignments}" columns="{!v.listPendingReviewColumns}"
+                                                 hideCheckboxColumn="true" onrowaction="{!c.handleRowAction}"/>
+                        </tr>
+                    </table>
+                
+                </div>
+                
+                <div class="submittedTable">
+                    <table title="Submitted Reviews">
+                        <caption class="submittedReviewCaption">
+                            <lightning:icon class="submittedIcon" iconName="action:following" alternativeText="following" title="following" size="small" />
+                            Submitted Reviews
+                        </caption>
+                    	<tr>
+                            <lightning:datatable keyField="revAssId" data="{!v.listCompletedReviewAssignments}" columns="{!v.listCompletedReviewColumns}"
+                                                 hideCheckboxColumn="true" onrowaction="{!c.handleRowAction}"/>
+                        </tr>
+                    </table>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

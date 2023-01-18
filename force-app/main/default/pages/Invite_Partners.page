@@ -1,0 +1,51 @@
+<apex:page standardController="Account" recordSetVar="Cs" extensions="AccountInvitationController" lightningStylesheets="True">
+    
+    
+    <html>
+      <head>
+         <apex:includeLightning />
+      </head>
+      <body class="slds-scope">
+         <div id="flowContainer" />
+         <script>
+
+            var statusChange = function (event) {
+               if(event.getParam("status") === "FINISHED") {
+                  // Control what happens when the interview finishes
+                  
+                  window.location.href = '/lightning/o/Account/list?filterName=Recent'; //relative to domain  
+                  
+                  var outputVariables = event.getParam("outputVariables");
+                  var key;
+                  for(key in outputVariables) {
+                     if(outputVariables[key].name === "myOutput") {
+                        // Do something with an output variable
+                     }
+                  }
+               }
+            };
+            $Lightning.use("c:RevAssignLightning", function() {
+               // Create the flow component and set the onstatuschange attribute
+               $Lightning.createComponent("lightning:flow", {"onstatuschange":statusChange},
+                  "flowContainer",
+                  function (component) {
+                     // Set the input variables
+                     var inputVariables = [
+                        {
+                           name : 'AccountIds',
+                           type : 'String',
+                           value : {!lstAcountsSelectedIds}
+                        }
+                     ];
+                     
+                     // Start an interview in the flowContainer div, and 
+                     // initializes the input variables.
+                     component.startFlow("Invite_Partner_to_Funding_Opportunity", inputVariables);
+                  }
+               );
+            });
+         </script>
+      </body>
+    </html>
+    
+</apex:page>

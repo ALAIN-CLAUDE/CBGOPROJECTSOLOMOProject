@@ -1,0 +1,5 @@
+<apex:page standardController="Funding_Request__c" docType="html-5.0" title="Formstack Documents Funding Request: {!Funding_Request__c.Name}">
+
+    <webm:WebmergeWizard record="{!Funding_Request__c}" /> 
+
+</apex:page>

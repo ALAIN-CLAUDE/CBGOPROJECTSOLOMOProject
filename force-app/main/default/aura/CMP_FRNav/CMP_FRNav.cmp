@@ -1,0 +1,118 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable,lightning:availableForFlowScreens" 
+                controller="CMP_FRNav_APX"
+                access="global" >
+	
+    
+    <aura:attribute type="String" name="fid" />
+    <aura:attribute type="String" name="selectedNavItem" />
+    <aura:attribute type="List" name="listFundingOpps" />
+    <aura:attribute type="List" name="listFundingReqs" />
+    <aura:attribute type="String" name="selectedNavName" default="fundingOpportunity"/>
+    <aura:attribute type="Boolean" name="fundingRequestsReturned" default="false" />
+    <aura:attribute type="String" name="adminId" default="" />
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.returnFundingOpps}" />
+    
+    <lightning:navigation aura:id="navService"/>
+    
+    <lightning:card iconName="custom:custom35" title="Select A Funding Opportunity">
+        <!--<lightning:button iconName="utility:check" label="Click Me" onclick="{!c.launchFlow}" />
+    	<lightning:flow aura:id="initialFlow" />-->
+        
+        <lightning:layout>
+            <lightning:layoutItem size="4">
+                <lightning:select aura:id="selectedFundOppId" label="Select a funding opportunity"
+                                  onchange="{!c.returnFundingRequests}">
+                    <option text="Choose a funding opportunity" value="" />
+                    <aura:iteration items="{!v.listFundingOpps}" var="fundOpp">
+                        <option text="{!fundOpp.Name}" value="{!fundOpp.Id}" selected="{!fundOpp.selected}"/>
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>        
+        </lightning:layout>
+        
+        
+        <lightning:layout>
+            <lightning:layoutItem>
+                <lightning:verticalNavigation onselect="{! c.handleVerticalNavigationSelect }" class="navigation" selectedItem="{!v.selectedNavName}">
+                    <lightning:verticalNavigationSection label="Organization">
+                        <lightning:verticalNavigationItemIcon  iconName="utility:company"
+                                                              label="Details" name="details" />
+                        <lightning:verticalNavigationItemIcon  iconName="utility:description"
+                                                              label="Background" name="background" />
+                        <!--<lightning:verticalNavigationItemIcon  iconName="utility:advertising"
+                                                              label="Activities &amp; Populations Served" name="activities_pops_org" />  -->                      
+                    </lightning:verticalNavigationSection>
+                    
+                    <lightning:verticalNavigationSection label="Grant Proposal">
+                        <lightning:verticalNavigationItemIcon  iconName="utility:favorite" label="Guidelines" 
+                                                              name="fundingOpportunity" />
+                        <lightning:verticalNavigationItemIcon  iconName="utility:record_update" label="Proposal" 
+                                                              name="fundingRequest" />
+                        <!--<lightning:verticalNavigationItemIcon  iconName="utility:advertising"
+                                                              label="Activities &amp; Populations" name="activities_pops_fr" />      -->                       
+                        <lightning:verticalNavigationItemIcon  iconName="utility:money" label="Budget &amp; Related Documentation" 
+                                                              name="budget" />
+                        <lightning:verticalNavigationItemIcon  iconName="utility:people" label="Contacts" 
+                                                              name="relatedContacts" />
+
+                    </lightning:verticalNavigationSection>
+                    
+                    <lightning:verticalNavigationSection label="">
+                        <lightning:verticalNavigationItemIcon  iconName="utility:button_choice"
+                                                              label="Review &amp; Submit" name="review" />
+                        <!--<lightning:verticalNavigationItemIcon  iconName="utility:description"
+                                                              label="Submit" name="submit" />-->
+                    </lightning:verticalNavigationSection>
+                </lightning:verticalNavigation>
+
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-medium">
+                <aura:if isTrue="{!v.selectedNavItem == 'fundingOpportunity'}">
+                	<lightning:flow aura:id="fundingOpportunityId" />
+                </aura:if>
+                
+                <aura:if isTrue="{!v.selectedNavItem == 'fundingRequest'}">
+                	<lightning:flow aura:id="fundingRequestId" />
+                </aura:if>
+                
+                <aura:if isTrue="{!v.selectedNavItem == 'budget'}">
+                	<lightning:flow aura:id="budgetId" />
+                </aura:if>
+                
+                <aura:if isTrue="{!v.selectedNavItem == 'relatedContacts'}">
+                	<lightning:flow aura:id="relatedContactsId" />
+                </aura:if>
+                
+                <!--<aura:if isTrue="{!v.selectedNavItem == 'activeReportingRequirements'}">
+                    <c:CMP_CommunityYourekaForm />
+                </aura:if>-->
+                
+                <aura:if isTrue="{!v.selectedNavItem == 'details'}">
+                	<lightning:flow aura:id="detailsId" />
+                </aura:if>
+                
+                <aura:if isTrue="{!v.selectedNavItem == 'background'}">
+                	<lightning:flow aura:id="backgroundId" />
+                </aura:if>
+
+                <aura:if isTrue="{!v.selectedNavItem == 'activities_pops_org'}">
+                	<lightning:flow aura:id="activitiesId" />
+                </aura:if>                
+
+                <aura:if isTrue="{!v.selectedNavItem == 'review'}">
+                	<lightning:flow aura:id="reviewId" />
+                </aura:if>
+                <aura:if isTrue="{!v.selectedNavItem == 'submit'}">
+                	<lightning:flow aura:id="submitId" />
+                </aura:if>                
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+    
+    
+    
+    
+    
+</aura:component>

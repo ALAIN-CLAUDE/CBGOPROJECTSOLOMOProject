@@ -1,0 +1,53 @@
+<apex:page standardController="Funding_Request__c" recordSetVar="Cs" extensions="ReviewAssignmentController" lightningStylesheets="True">
+    
+   <!--This is how we call the Flow with a input paramater. Here CasesSelectedRecs is the input variable of the Flow-->
+   <!--<flow:interview name="ReviewAssignment">
+        <apex:param name="ReviewSelectedRecs" value="{!LstSelectedRequests}" />
+    </flow:interview>-->
+    <html>
+      <head>
+         <apex:includeLightning />
+      </head>
+      <body class="slds-scope">
+         <div id="flowContainer" />
+
+         <script>
+            var statusChange = function (event) {
+               if(event.getParam("status") === "FINISHED") {
+                  // Control what happens when the interview finishes
+                  
+                  window.location.href = '/lightning/o/Funding_Request__c/list?filterName=Recent'; //relative to domain  
+                  
+                  var outputVariables = event.getParam("outputVariables");
+                  var key;
+                  for(key in outputVariables) {
+                     if(outputVariables[key].name === "myOutput") {
+                        // Do something with an output variable
+                     }
+                  }
+               }
+            };
+            $Lightning.use("c:RevAssignLightning", function() {
+               // Create the flow component and set the onstatuschange attribute
+               $Lightning.createComponent("lightning:flow", {"onstatuschange":statusChange},
+                  "flowContainer",
+                  function (component) {
+                     // Set the input variables
+                     var inputVariables = [
+                        {
+                           name : 't_list',
+                           type : 'String',
+                           value : {!listFunReqsStr}
+                        }
+                     ];
+                     
+                     // Start an interview in the flowContainer div, and 
+                     // initializes the input variables.
+                     component.startFlow("ReviewAssignment", inputVariables);
+                  }
+               );
+            });
+         </script>
+      </body>
+   </html>
+</apex:page>

@@ -1,0 +1,83 @@
+<!-- sldsValidatorIgnore -->
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-21-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<template>
+	<div class="slds-box">
+		<article class="slds-card">
+			<div class="slds-card__body slds-card__body_inner">
+
+				<div class="slds-form">
+					<div class="slds-form-element slds-form-element_stacked">
+						<legend class="slds-form-element__legend slds-form-element__label">Tags</legend>
+						<div class="slds-form-element__control">
+							<div class="spinner">
+								<template if:true={isLoading}>
+									<lightning-spinner alternative-text="Loading" variant="brand" size="large">
+									</lightning-spinner>
+								</template>
+							</div>
+							<div class="slds-p-horizontal_small">
+
+								<lightning-pill-container items={tags}
+									onitemremove={handleItemRemove}></lightning-pill-container>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="slds-form-element slds-form-element_stacked">
+						<div class="slds-form-element__control">
+							<label class="slds-form-element__label" for="unique-form-element-id"><b>Codes</b></label>
+						</div>
+						<table class="slds-table slds-table_cell-buffer slds-box " aria-label=" ">
+							<template for:each={codes} for:item="item">
+								<tbody key={item.parentCodeName} class="slds-box ">
+									<tr class="slds-hint-parent">
+										<th data-label="Parent Name" scope="row">
+											<div class="slds-truncate" title="Parent Name">
+												<b>{item.parentCodeName}</b>
+											</div>
+										</th>
+										<td data-label="">
+										</td>
+									</tr>
+
+									<template for:each={item.childs} for:item="itemValue">
+										<tr class="slds-hint-parent" key={itemValue.Id}>
+											<th data-label="ChildName" scope="row">
+												<div class="slds-truncate" title="Child Name">
+													{itemValue.Code_and_Tag__r.Name}
+												</div>
+											</th>
+											<td data-label="child score">
+												<div class="slds-truncate">
+													{itemValue.Allocation__c} %
+												</div>
+											</td>
+
+											<td data-label="child allocation amount">
+												<div class="slds-truncate">
+													${itemValue.Allocation_Amount__c}
+												</div>
+											</td>
+										</tr>
+									</template>
+
+								</tbody>
+							</template>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		</article>
+	</div>
+</template>

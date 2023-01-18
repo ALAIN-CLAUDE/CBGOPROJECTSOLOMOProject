@@ -1,0 +1,39 @@
+.THIS .welcomeHeader{
+    font-size:1.50rem;
+    font-weight:bold;
+    color: #A9A9A9;
+}
+
+.THIS .submissionText{
+    font-size:1.25rem;
+    color: #A9A9A9;
+    padding-bottom:10px;
+}
+
+.THIS .pendingReviewCaption{
+    font-size:1.25rem;
+    color: #FFFFFF;
+    background-color:#191970
+}
+
+.THIS .pendingIcon{
+    background-color:#658cbb;
+}
+
+.THIS .submittedTable{
+    padding-top:40px;
+}
+
+.THIS .submittedReviewCaption{
+    font-size:1.25rem;
+    color: #FFFFFF;
+    background-color:#228B22
+}
+
+.THIS .submittedIcon{
+    background-color:#8FBC8F;
+}
+
+.THIS .dueDatePassed{
+    color:#D22B2B;
+}

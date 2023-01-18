@@ -1,0 +1,11 @@
+/**
+ * Created by Dzianis_Liatkouski on 9.08.22.
+ */
+.slds-tree__item .last-row-bold table tr:last-child * {
+    font-weight: 900;
+    background-color: aqua;
+}
+
+.rowElement{
+    background-color: aqua;
+}

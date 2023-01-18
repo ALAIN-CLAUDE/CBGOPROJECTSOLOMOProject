@@ -1,0 +1,15 @@
+.THIS .contactTable {
+     border: 1px solid black;
+}
+
+.THIS.redHeader{
+    background-color : red;
+}
+
+.THIS.blueHeader{
+    background-color : blue;
+}
+
+.THIS.greenHeader{
+    background-color : green;
+}

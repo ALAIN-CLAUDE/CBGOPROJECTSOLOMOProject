@@ -1,0 +1,110 @@
+<!--
+ - Created by denisletkovski on 2022-06-23.
+ -->
+
+<!-- Lwc Budget Record Detail -->
+<template>
+    <template if:true={isRecordExists}>
+        <lightning-card>
+
+            <div class="slds-m-around_medium slds-text-title_bold slds-text-heading_large big-text">
+                {budgetDetail.budgetName}
+            </div>
+
+            <div class="slds-m-around_medium slds-text-title_bold">
+                Budget: <lightning-formatted-number value={budgetDetail.budgetAmount}></lightning-formatted-number>
+            </div>
+
+            <div class='slds-m-around_medium'>
+                <lightning-tree-grid columns={columns} data={tableData} key-field="typePaid"
+                    onclick={navigateToRecordViewPage} hide-checkbox-column="true"></lightning-tree-grid>
+            </div>
+            <div class='slds-m-around_medium'>
+                <lightning-button label='New' title='New' onclick={handleNewPlanningDollarsButtonClick}>
+                </lightning-button>
+            </div>
+            <div class='slds-m-around_medium'>
+                <lightning-tree-grid columns={planningColumns} data={projectedData} onrowaction={handleRowActions}
+                    key-field="planningDollarRecId" hide-checkbox-column="true"></lightning-tree-grid>
+            </div>
+            <div class="slds-m-around_medium slds-text-title_bold totals">
+                Projected: <lightning-formatted-number value={budgetDetail.projected}></lightning-formatted-number>
+            </div>
+
+            <div class="slds-m-around_medium slds-text-title_bold totals">
+                Planning: <lightning-formatted-number value={budgetDetail.planning}></lightning-formatted-number>
+            </div>
+
+            <div class="slds-m-around_medium slds-text-title_bold slds-text-color_destructive totals">
+                Remaining: <lightning-formatted-number value={budgetDetail.remaining}></lightning-formatted-number>
+            </div>
+
+        </lightning-card>
+    </template>
+    <!-- <div class="slds-hidden">{budget}</div>  -->
+    <!-- TO DO: remove that and find way for rerender component -->
+
+    <!--New/Edit/Child-->
+    <!--Modal Window-->
+    <template if:true={openModalWindow}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+            class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <lightning-button-icon icon-name="utility:close" class="slds-modal__close" variant="bare-inverse"
+                    size="large" onclick={handleCloseModalWindow}></lightning-button-icon>
+                <lightning-record-edit-form record-id={planningDollarRecId} object-api-name="Planning_Dollars__c"
+                    onsuccess={handleRecordFormSuccess}>
+                    <div class="slds-modal__header">
+                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                            <template if:true={isNewPlanningDollars}>New Planning Dollars</template>
+                            <template if:true={isEditPlanningDollars}>
+                                Edit Planning Dollars
+                            </template>
+                            <template if:true={isChildPlanningDollars}>New Child Planning Dollars</template>
+                        </h1>
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning-layout multiple-rows>
+                            <lightning-layout-item size="6" padding="arount-small">
+                                <lightning-input-field field-name="Name"></lightning-input-field>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="arount-small">
+                                <lightning-input-field field-name="Amount__c"></lightning-input-field>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="arount-small">
+                                <lightning-input-field field-name="Notes__c"></lightning-input-field>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="arount-small">
+                                <template if:true={isChildPlanningDollars}>
+                                    <lightning-input-field field-name="Planning_Detail__c"
+                                        value={parentPlanningDollarRecId}>
+                                    </lightning-input-field>
+                                </template>
+                                <template if:true={isEditPlanningDollars} padding="arount-small">
+                                    <lightning-input-field field-name="Planning_Detail__c"></lightning-input-field>
+                                </template>
+
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="arount-small">
+                                <lightning-input-field field-name="Budget_Scenario__c" value={budget}>
+                                </lightning-input-field>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <lightning-button label="Cancel" class="footerButtons" variant="destructive"
+                            onclick={handleCloseModalWindow}>
+                        </lightning-button>
+                        <lightning-button label="Save" type="submit"></lightning-button>
+                    </div>
+                </lightning-record-edit-form>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation">
+        </div>
+
+    </template>
+
+
+    <!--*************-->
+</template>

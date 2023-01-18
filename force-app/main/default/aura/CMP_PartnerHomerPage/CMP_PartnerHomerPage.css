@@ -1,0 +1,9 @@
+.THIS .bannerText{
+    font-size:1.25rem;
+    font-weight:bold;
+    color: rgb(3, 45, 96);
+}
+
+.THIS .gridBorder{
+    border-bottom: solid .5px rgb(243, 242, 242);
+}
